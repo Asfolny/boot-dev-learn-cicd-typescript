@@ -27,6 +27,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Build
+        run: npm run db:migrate
+
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -40,3 +43,4 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: gcloud run deploy notely --image ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REPO }}/notely:latest --region ${{ secrets.GCP_REGION }} --allow-unauthenticated --project ${{ secrets.GCP_PROJECT_ID }} --max-instances=4
+
